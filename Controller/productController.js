@@ -26,13 +26,14 @@ const getProductById = async (req, res) => {
 
 // Create a product
 const createProduct = async (req, res) => {
-  const { name, description, price, image } = req.body;
-  if (!name || !description || !price || !image) {
+  const { sku, name, description, price, image } = req.body;
+  if (!sku || !name || !description || !price || !image) {
     return res
       .status(400)
-      .json({ message: "Please provide name, description, and price" });
+      .json({ message: "Please provide sku, name, description, and price" });
   }
   const product = new Product({
+    sku,
     name,
     description,
     price,
@@ -49,7 +50,7 @@ const createProduct = async (req, res) => {
 //Update a product
 const updateProduct = async (req, res) => {
   const id = req.params.id;
-  const { name, description, price, image } = req.body;
+  const { sku, name, description, price, image } = req.body;
   console.log(id);
   console.log(req.params);
   try {
@@ -58,6 +59,7 @@ const updateProduct = async (req, res) => {
       return res.status(404).json({ message: "Product not found" });
     }
 
+    product.sku = sku || product.sku;
     product.name = name || product.name;
     product.description = description || product.description;
     product.price = price || product.price;

@@ -2,6 +2,11 @@ const mongoose = require('mongoose');
 
 //prodcut schema creation
 const productSchema = new mongoose.Schema({
+
+  sku:{
+    type: String,
+    required: true,
+  },
   name: {
     type: String,
     required: true,
